@@ -1,0 +1,13 @@
+{
+  "agent": "scripted-resilient",
+  "repetitions": 3,
+  "concurrency": 4,
+  "seed": 42,
+  "guardrails": true,
+  "max_steps": 12,
+  "max_tool_calls": 16,
+  "max_tokens": 12000,
+  "episode_timeout_s": 30,
+  "tool_timeout_s": 0.05,
+  "max_retries": 2
+}

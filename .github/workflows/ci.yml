@@ -1,0 +1,35 @@
+name: CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.11', '3.12', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: System and real-network tests
+        env:
+          PYTHONPATH: src
+          TRACEFORGE_NETWORK_TESTS: '1'
+        run: python -m unittest discover -s tests -v
+      - name: Reproduce offline benchmark
+        env:
+          PYTHONPATH: src
+        run: python -m traceforge --db data/ci.db demo --output data/ci-report.json
+      - name: Compile Python and check JavaScript
+        run: |
+          python -m compileall -q src tests
+          node --check src/traceforge/static/app.js
+      - name: Upload benchmark evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmark-python-${{ matrix.python }}
+          path: data/ci-report.json

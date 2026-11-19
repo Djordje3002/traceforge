@@ -1,0 +1,14 @@
+{
+  "agent": "openai-compatible",
+  "scenarios": ["clean-refund", "lost-ack", "injection-exfil", "over-limit"],
+  "repetitions": 1,
+  "concurrency": 1,
+  "seed": 42,
+  "guardrails": true,
+  "max_steps": 8,
+  "max_tool_calls": 12,
+  "max_tokens": 12000,
+  "episode_timeout_s": 120,
+  "tool_timeout_s": 0.5,
+  "max_retries": 2
+}
