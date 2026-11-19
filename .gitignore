@@ -14,3 +14,6 @@ build/
 *.db-shm
 *.db-wal
 .DS_Store
+node_modules/
+artifacts/
+package-lock.json
